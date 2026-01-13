@@ -1,18 +1,22 @@
 package com.example.fitlog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitlog.ui.FoodViewModel
 
 class SearchFoodFragment:Fragment() {
-    private lateinit var viewModel: FoodViewModel
+
+    val foodViewModel: FoodViewModel by viewModels {
+        (requireActivity() as MainActivity).viewModelFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,21 +27,37 @@ class SearchFoodFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewModel = ViewModelProvider(
-//            requireActivity(),
-//            (requireActivity() as MainActivity).App
-//        )[FoodViewModel::class.java]
-//
-//        val searchView = view.findViewById<SearchView>(R.id.searchView)
-//        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-//
-//        recyclerView.layoutManager = LinearLayoutManager(context)
-//        val adapter = FoodAdapter()
-//
-//        viewModel.foundFood.observe(viewLifecycleOwner) { response ->
-//            val tempList = response.common+response.branded
-//            recyclerView.adapter = FoodAdapter(tempList)
-//        }
 
+        val searchView = view.findViewById<SearchView>(R.id.searchView)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter = FoodAdapter()
+        recyclerView.adapter = adapter
+
+
+        foodViewModel.foundFood.observe(viewLifecycleOwner) { foundFood ->
+            Log.d("MainActivity", "LiveData updated: $foundFood")
+            val foodList = foundFood.foods.food
+            adapter.submitList(foodList)
+        }
+
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    //foodViewModel.getSearchedFood(query)
+                    foodViewModel.loadMockFood(requireContext())
+                }
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
+        Log.d("Search_food_fragment", "Inside fragment's on view created")
     }
 }

@@ -1,0 +1,79 @@
+{
+  "foods": {
+    "food": [
+      {
+        "food_description": "Per 100g - Calories: 32kcal | Fat: 0.90g | Carbs: 4.66g | Protein: 1.46g",
+        "food_id": 5204,
+        "food_name": "Soup",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/soup"
+      },
+      {
+        "food_description": "Per 2880g - Calories: 2707kcal | Fat: 131.88g | Carbs: 203.30g | Protein: 187.46g",
+        "food_id": 7121,
+        "food_name": "Vegetable Beef Soup (Home Recipe)",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/vegetable-beef-soup-home-recipe"
+      },
+      {
+        "food_description": "Per 1399g - Calories: 587kcal | Fat: 26.57g | Carbs: 71.75g | Protein: 24.62g",
+        "food_id": 6908,
+        "food_name": "Vegetable Soup (Home Recipe)",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/vegetable-soup-home-recipe"
+      },
+      {
+        "food_description": "Per 950g - Calories: 1301kcal | Fat: 71.31g | Carbs: 93.34g | Protein: 70.07g",
+        "food_id": 2447,
+        "food_name": "Beef, Noodles and Vegetables Soup (Including Carrots, Broccoli, and/or Dark-Green Leafy, Mixture)",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/beef-noodles-and-vegetables-(including-carrots-broccoli-and-or-dark-green-leafy)-(mushroom)-soup-(mixture)"
+      },
+      {
+        "food_description": "Per 2310g - Calories: 1317kcal | Fat: 36.50g | Carbs: 120.13g | Protein: 129.83g",
+        "food_id": 3022,
+        "food_name": "Chicken or Turkey Vegetable Soup (Home Recipe)",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/chicken-or-turkey-vegetable-soup-home-recipe"
+      },
+      {
+        "food_description": "Per 100g - Calories: 42kcal | Fat: 1.20g | Carbs: 7.35g | Protein: 1.25g",
+        "food_id": 6205,
+        "food_name": "Tomato Soup",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/tomato-soup"
+      },
+      {
+        "food_description": "Per 100g - Calories: 31kcal | Fat: 1.02g | Carbs: 3.88g | Protein: 1.68g",
+        "food_id": 3013,
+        "food_name": "Chicken Soup",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/chicken-soup"
+      },
+      {
+        "food_description": "Per 260g - Calories: 195kcal | Fat: 5.20g | Carbs: 25.12g | Protein: 12.26g",
+        "food_id": 2986,
+        "food_name": "Chunky Style Beef Vegetable Stew Type Soup with Rice",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/beef-vegetable-soup-with-rice-stew-type-chunky-style"
+      },
+      {
+        "food_description": "Per 836g - Calories: 911kcal | Fat: 30.25g | Carbs: 96.45g | Protein: 64.35g",
+        "food_id": 2523,
+        "food_name": "Chicken or Turkey, Noodles and Vegetables in Cream Sauce, White Sauce or Mushroom Soup-Based Sauce (Mixture)",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/chicken-or-turkey-noodles-and-vegetables-(excluding-carrots-broccoli-and-or-dark-green-leafy)-cream-sauce-white-sauce-or-mushroom-soup-based-sauce-(mixture)"
+      },
+      {
+        "food_description": "Per 3887g - Calories: 2099kcal | Fat: 24.10g | Carbs: 353.32g | Protein: 137.60g",
+        "food_id":3307,
+        "food_name": "Mixed Beans Soup",
+        "food_type": "Generic",
+        "food_url": "https://foods.fatsecret.com/calories-nutrition/generic/bean-soup-mixed-beans"
+      }
+    ],
+    "max_results": 10,
+    "page_number": 0,
+    "total_results": 1999
+  }
+}

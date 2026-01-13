@@ -1,5 +1,8 @@
 package com.example.fitlog
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,11 +10,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitlog.data.model.Food
 
-class FoodAdapter(private val foodList:List<Food>):RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
+class FoodAdapter:RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
+
+    private val foodList= mutableListOf<Food>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(newFoodList:List<Food>) {
+        foodList.clear()
+        foodList.addAll(newFoodList)
+        notifyDataSetChanged()
+    }
 
     class FoodViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textName: TextView = view.findViewById(R.id.tvFoodName)
-        val textCalories: TextView = view.findViewById(R.id.tvCalories)
+        val textDescription: TextView = view.findViewById(R.id.tvCalories)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
@@ -23,10 +35,8 @@ class FoodAdapter(private val foodList:List<Food>):RecyclerView.Adapter<FoodAdap
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         val foodItem = foodList[position]
         holder.textName.text = foodItem.food_name
-        holder.textCalories.text = foodItem.serving_qty.toString()
+        holder.textDescription.text = foodItem.food_description
     }
-
-    
 
     override fun getItemCount(): Int = foodList.size
 }
