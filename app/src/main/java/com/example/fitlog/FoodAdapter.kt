@@ -10,7 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitlog.data.model.Food
 
-class FoodAdapter:RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
+class FoodAdapter(private val onItemClicked:(Food) -> Unit)
+    :RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
 
     private val foodList= mutableListOf<Food>()
 
@@ -36,7 +37,10 @@ class FoodAdapter:RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
         val foodItem = foodList[position]
         holder.textName.text = foodItem.food_name
         holder.textDescription.text = foodItem.food_description
-    }
 
+        holder.itemView.setOnClickListener {
+            onItemClicked(foodItem)
+        }
+    }
     override fun getItemCount(): Int = foodList.size
 }

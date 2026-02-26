@@ -9,5 +9,17 @@
         android:id="@+id/searchFoodFragment"
         android:name="com.example.fitlog.SearchFoodFragment"
         android:label="SearchFoodFragment"
-        tools:layout="@layout/search_food_fragment" />
+        tools:layout="@layout/search_food_fragment" >
+        <action
+            android:id="@+id/action_searchFoodFragment_to_foodDetailsFragment"
+            app:destination="@id/foodDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodDetailsFragment"
+        android:name="com.example.fitlog.FoodDetailsFragment"
+        android:label="FoodDetailsFragment" >
+        <argument
+            android:name="food_id"
+            app:argType="long" />
+    </fragment>
 </navigation>

@@ -7,6 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface WorkoutApiService {
-    @POST("v2/natural/exercise")
+    @POST("rest/v2/natural/exercise")
     suspend fun findWorkout(@Body workoutRequest: WorkoutRequest): WorkoutResponse
 }

@@ -18,6 +18,7 @@ room = "2.6.1"
 constraintlayout = "2.2.1"
 appcompat = "1.7.1"
 recyclerview = "1.4.0"
+navigation = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,4 +53,6 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+navigation-safeargs = {  id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
+
 
