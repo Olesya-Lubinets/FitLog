@@ -1,5 +1,6 @@
 package com.example.fitlog.data.model
 
+import android.annotation.SuppressLint
 import java.time.LocalDate
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,3 +14,13 @@ data class WorkoutLog (
     val duration: Int,
     val caloriesBurned:Int
 )
+
+@SuppressLint("NewApi")
+fun convertWorkoutToWorkoutLog(workout: Workout):WorkoutLog {
+    return WorkoutLog(
+        date = LocalDate.now(),
+        name = workout.name,
+        duration = workout.duration_minutes,
+        caloriesBurned = workout.total_calories
+    )
+}

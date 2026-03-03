@@ -62,7 +62,5 @@ class SearchFoodFragment:Fragment() {
                 return true
             }
         })
-
-
     }
 }

@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
 import java.time.LocalDate
 
-class TypeConverters {
+class TimeTypeConverters {
         @RequiresApi(Build.VERSION_CODES.O)
         @TypeConverter
         fun fromTimestamp(epochDay: Long?): LocalDate? = epochDay?.let { LocalDate.ofEpochDay(it) }

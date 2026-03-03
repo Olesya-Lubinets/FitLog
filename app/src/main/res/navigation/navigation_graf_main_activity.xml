@@ -22,4 +22,8 @@
             android:name="food_id"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/addWorkoutFragment"
+        android:name="com.example.fitlog.AddWorkoutFragment"
+        android:label="AddWorkoutFragment" />
 </navigation>

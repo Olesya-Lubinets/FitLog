@@ -1,11 +1,12 @@
 package com.example.fitlog.data.repository
 
-import com.example.fitlog.data.api.FatSecretAPIClient
-import com.example.fitlog.data.model.WorkoutRequest
+import com.example.fitlog.data.api.workaoutAPI.WorkoutRetrofit
+
 
 class WorkoutRepository {
 
-    val workoutApi = FatSecretAPIClient.workoutApi
+    private val workoutApi = WorkoutRetrofit.workoutAPI
 
-    suspend fun getSearchedWorkout(searchedWorkout:WorkoutRequest) = workoutApi.findWorkout(searchedWorkout)
+    suspend fun getSearchedWorkout( activity:String,weight:Int,duration:Int) =
+        workoutApi.findWorkout(activity,weight,duration)
 }
