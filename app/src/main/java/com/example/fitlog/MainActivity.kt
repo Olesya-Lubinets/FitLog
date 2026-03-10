@@ -3,6 +3,7 @@ package com.example.fitlog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import androidx.room.Room
 import com.example.fitlog.data.db.AppDatabase
 import com.example.fitlog.data.repository.FoodLogRepository
 import com.example.fitlog.data.repository.FoodRepository
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.food_button -> navigateTo(R.id.searchFoodFragment)
                 R.id.workout_button -> navigateTo(R.id.addWorkoutFragment)
+                R.id.dashboard_button -> navigateTo(R.id.dashBoardFragment)
             }
             true
         }

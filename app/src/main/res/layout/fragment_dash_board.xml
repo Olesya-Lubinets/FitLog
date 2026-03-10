@@ -1,14 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DashBoardFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-</FrameLayout>
+        <!-- Main Title -->
+        <TextView
+            android:id="@+id/tvTitleToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TODAY"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Food Section -->
+        <TextView
+            android:id="@+id/tvFoodTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/etFood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Food details..."
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:layout_marginBottom="24dp" />
+
+
+
+        <!-- Workout Section -->
+        <TextView
+            android:id="@+id/tvWorkoutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Workout"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/etWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Workout details..."
+            android:inputType="textMultiLine"
+            android:minLines="2" />
+
+    </LinearLayout>
+
+</ScrollView>

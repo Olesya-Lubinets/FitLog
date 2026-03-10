@@ -13,6 +13,7 @@ class FoodAdapter(private val onItemClicked:(Food) -> Unit)
 
     private val foodList= mutableListOf<Food>()
 
+
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newFoodList:List<Food>) {
         foodList.clear()

@@ -11,25 +11,62 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvCaloriesPerHour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
-
-    <TextView
-        android:id="@+id/tvDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
-
-    <TextView
-        android:id="@+id/tvTotalCalories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginTop="6dp" />
+        android:layout_marginBottom="8dp"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <TextView
+                android:text="Calories per hour"
+                android:textStyle="bold"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvCaloriesPerHour"
+                android:padding="4dp"
+                android:layout_marginStart="16dp"/>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="Duration"
+                android:textStyle="bold"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvDuration"
+                android:padding="4dp"
+                android:layout_marginStart="16dp"/>
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="Total calories"
+                android:textStyle="bold"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvTotalCalories"
+                android:padding="4dp"
+                android:layout_marginStart="16dp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btnAddWorkoutToToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Today"
+        android:visibility="gone"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp" />
 
 </LinearLayout>

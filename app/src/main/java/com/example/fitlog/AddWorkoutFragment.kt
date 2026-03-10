@@ -31,11 +31,6 @@ class AddWorkoutFragment : Fragment() {
         (requireActivity() as MainActivity).viewModelFactory
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,8 +41,6 @@ class AddWorkoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var selectedWorkout: Workout? = null
-
         val searchButton = view.findViewById<Button>(R.id.btnSearchWorkout)
 
         val activity = view.findViewById<EditText>(R.id.etActivity)
@@ -56,12 +49,15 @@ class AddWorkoutFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvWorkouts)
 
-        val addToToday = view.findViewById<Button>(R.id.btnAddWorkoutToToday)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = WorkoutAdapter { workout ->
-            addToToday.visibility = View.VISIBLE
-            selectedWorkout = workout
+            workoutLogViewModel.addWorkoutLog(
+                convertWorkoutToWorkoutLog(
+                    workout
+                )
+            )
+            Toast.makeText(context,"Workout added",Toast.LENGTH_SHORT).show()
         }
         recyclerView.adapter = adapter
 
@@ -81,16 +77,5 @@ class AddWorkoutFragment : Fragment() {
             adapter.submitList(foundWorkout)
         }
 
-        addToToday.setOnClickListener {
-            selectedWorkout?.let { workout ->
-                workoutLogViewModel.addWorkoutLog(
-                    convertWorkoutToWorkoutLog(
-                        workout
-                    )
-                )
-                Toast.makeText(context, "Added to today", Toast.LENGTH_SHORT).show()
-            }
-            addToToday.visibility = View.GONE
-        }
     }
 }

@@ -26,4 +26,9 @@
         android:id="@+id/addWorkoutFragment"
         android:name="com.example.fitlog.AddWorkoutFragment"
         android:label="AddWorkoutFragment" />
+    <fragment
+        android:id="@+id/dashBoardFragment"
+        android:name="com.example.fitlog.DashBoardFragment"
+        android:label="fragment_dash_board"
+        tools:layout="@layout/fragment_dash_board" />
 </navigation>

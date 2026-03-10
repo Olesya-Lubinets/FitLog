@@ -12,11 +12,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fitlog.data.model.FoodLog
+import com.example.fitlog.data.model.FoodX
+import com.example.fitlog.data.model.Serving
 import com.example.fitlog.ui.FoodLogViewModel
 import com.example.fitlog.ui.FoodViewModel
 import java.time.LocalDate
-import java.util.Calendar
+
 
 
 class FoodDetailsFragment : Fragment() {
@@ -46,38 +50,43 @@ class FoodDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val foodName = view.findViewById<TextView>(R.id.tvFoodName)
-        val foodServings = view.findViewById<TextView>(R.id.tvServings)
         val foodType = view.findViewById<TextView>(R.id.tvFoodType)
 
-        val addToTodayButton = view.findViewById<Button>(R.id.btAddToToday)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rvServings)
 
-        showFoodItemInfo( foodName, foodServings , foodType)
 
-        addToTodayButton.setOnClickListener {
-            Toast.makeText(context,"Added to today",Toast.LENGTH_SHORT).show()
-            val foodLog = getFoodLogFromFoodX()
-            foodLogViewModel.addFoodLog(foodLog)
-            Log.d("FoodDetails","Food added to today")
+        var selectedFood:FoodX? = null
+
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        val adapter = ServingAdapter { serving ->
+            if (selectedFood!=null) {
+                foodLogViewModel.addFoodLog(
+                    getFoodLogFromFoodX(selectedFood!!, serving)
+                )
+            }
+            Toast.makeText(context,"Food added",Toast.LENGTH_SHORT).show()
         }
-    }
+        recyclerView.adapter = adapter
 
-    private fun showFoodItemInfo (foodName:TextView, foodType:TextView, foodServings:TextView) {
         foodViewModel.foodByID.observe(viewLifecycleOwner) {foodByID ->
             foodName.text = foodByID.food.food_name
             foodType.text = foodByID.food.food_type
-            val servingsString = foodByID.food.servings.serving.joinToString(separator = "\n\n")
-            foodServings.text = servingsString
+            adapter.submitList(foodByID.food.servings.serving)
+            selectedFood = foodByID.food
         }
+
     }
 
+
     @SuppressLint("NewApi")
-    fun getFoodLogFromFoodX():FoodLog {
+    fun getFoodLogFromFoodX(food: FoodX,serving:Serving):FoodLog {
         lateinit var foodLog:FoodLog
         foodViewModel.foodByID.observe(viewLifecycleOwner) { foodByID ->
             foodLog = FoodLog(
-                name = foodByID.food.food_name, date = LocalDate.now(),
-                    calories = foodByID.food.servings.serving[0].calories.toIntOrNull() ?: 0
+                name = food.food_name, date = LocalDate.now(),
+                    calories = serving.calories.toIntOrNull()?:0
             )
         }
         return foodLog

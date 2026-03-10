@@ -10,7 +10,7 @@ import com.example.fitlog.data.repository.WorkoutLogRepository
 import kotlinx.coroutines.launch
 
 class WorkoutLogViewModel(private val workoutLogRepository: WorkoutLogRepository):ViewModel() {
-    val workoutLogLiveData: LiveData<List<WorkoutLog>> = workoutLogRepository.workoutLogLiveData
+    val workoutLogList: LiveData<List<WorkoutLog>> = workoutLogRepository.workoutLogLiveData
 
     fun addWorkoutLog(newWorkoutLog: WorkoutLog) {
         viewModelScope.launch {
