@@ -33,12 +33,14 @@
             android:id="@+id/etFood"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:hint="Food details..."
-            android:inputType="textMultiLine"
-            android:minLines="2"
             android:layout_marginBottom="24dp" />
 
-
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/foodChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
 
         <!-- Workout Section -->
         <TextView
@@ -54,9 +56,13 @@
             android:id="@+id/etWorkout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Workout details..."
-            android:inputType="textMultiLine"
-            android:minLines="2" />
+            android:textStyle="bold"
+            android:hint="Workout details..." />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/workoutChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
 
     </LinearLayout>
 

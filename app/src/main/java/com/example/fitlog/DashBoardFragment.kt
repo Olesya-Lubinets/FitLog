@@ -13,6 +13,7 @@ import com.example.fitlog.data.Statistics
 import com.example.fitlog.ui.FoodLogViewModel
 import com.example.fitlog.ui.WorkoutLogViewModel
 import java.time.LocalDate
+import com.github.mikephil.charting.charts.LineChart
 
 class DashBoardFragment : Fragment() {
 
@@ -24,9 +25,6 @@ class DashBoardFragment : Fragment() {
         (requireActivity() as MainActivity).viewModelFactory
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,16 +39,18 @@ class DashBoardFragment : Fragment() {
 
         val foodListED  = view.findViewById<TextView>(R.id.etFood)
         val workoutList = view.findViewById<TextView>(R.id.etWorkout)
+        val foodChart: LineChart = view.findViewById(R.id.foodChart)
+        val workoutChart: LineChart = view.findViewById(R.id.workoutChart)
 
         foodLogViewModel.foodLogList.observe(viewLifecycleOwner) { foods ->
-            foodListED.text =
-                    Statistics.calculate5DayFoodStatistic(foods).map {"${it.first}:${it.second} "}
-                        .joinToString (separator = "\n")
+            foodListED.text = "Today eaten ${Statistics.calculateTotalFoodForDay(foods,LocalDate.now())}"
+            val dataForChartUpdate = Statistics.calculate5DayFoodStatistic(foods)
+            ChartManager.drawFoodChart(foodChart,dataForChartUpdate)
         }
         workoutLogViewModel.workoutLogList.observe(viewLifecycleOwner) { workouts ->
-            workoutList.text =Statistics.calculateTotalWorkoutForDay(workouts,LocalDate.now()).toString() +
-                    Statistics.calculate5DayWorkoutStatistic(workouts).joinToString  (separator = " ")
+            workoutList.text = "Today burned ${Statistics.calculateTotalWorkoutForDay(workouts,LocalDate.now())}"
+            val dataForChartUpdate = Statistics.calculate5DayWorkoutStatistic(workouts)
+            ChartManager.drawWorkoutChart(workoutChart,dataForChartUpdate)
         }
-
     }
 }
