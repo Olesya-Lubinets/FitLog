@@ -6,25 +6,31 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.fitlog.data.model.FoodLog
+import com.example.fitlog.data.model.WorkoutFavorite
 import com.example.fitlog.data.model.WorkoutLog
 
-@Database(entities = [FoodLog::class,WorkoutLog::class], version = 1)
+@Database(entities = [FoodLog::class,WorkoutLog::class, WorkoutFavorite::class], version = 3)
 @TypeConverters(TimeTypeConverters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun foodLogDao(): FoodLogDao
     abstract fun workoutLogDao(): WorkoutLogDao
+    abstract fun workoutFavoriteDao() : WorkoutFavoriteDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
+
                 Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "fitlog_database"
-                ).build().also { INSTANCE = it }
+                )
+                    //.addMigrations(Migrations.MIGRATION_1_2)
+                    .fallbackToDestructiveMigration(true)
+                    .build().also { INSTANCE = it }
 
             }
         }

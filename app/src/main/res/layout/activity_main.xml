@@ -25,9 +25,10 @@
             android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FAF7F0"
             app:menu="@menu/bottom_navigation_menu"
-
-            app:itemIconTint="@null"
+            app:itemIconTint="@color/bottom_nav_color"
+            app:itemTextColor="@color/bottom_nav_color"
             app:labelVisibilityMode="labeled"/>
 
 

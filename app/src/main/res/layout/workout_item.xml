@@ -60,13 +60,31 @@
 
     </TableLayout>
 
-    <Button
-        android:id="@+id/btnAddWorkoutToToday"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add to Today"
-        android:visibility="gone"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        android:id="@+id/buttonContainer">
+
+        <ImageButton
+            android:id="@+id/btnAddWorkoutToFavorite"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/favorite_selector"
+            android:contentDescription="Favorite"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"/>
+
+        <Button
+            android:id="@+id/btnAddWorkoutToToday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Add to Today"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

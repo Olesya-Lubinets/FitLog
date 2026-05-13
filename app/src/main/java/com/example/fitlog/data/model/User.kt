@@ -1,6 +1,5 @@
 package com.example.fitlog.data.model
 
-import androidx.compose.ui.Modifier
 import kotlin.math.roundToInt
 
 data class User(

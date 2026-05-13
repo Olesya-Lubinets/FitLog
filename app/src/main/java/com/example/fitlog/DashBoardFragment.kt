@@ -6,10 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.viewModels
-import com.example.fitlog.data.Statistics
 import com.example.fitlog.ui.FoodLogViewModel
 import com.example.fitlog.ui.WorkoutLogViewModel
 import java.time.LocalDate

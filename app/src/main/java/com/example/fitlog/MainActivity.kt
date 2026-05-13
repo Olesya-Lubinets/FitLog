@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.fitlog.data.db.AppDatabase
 import com.example.fitlog.data.repository.FoodLogRepository
 import com.example.fitlog.data.repository.FoodRepository
+import com.example.fitlog.data.repository.WorkoutFavoriteRepository
 import com.example.fitlog.data.repository.WorkoutLogRepository
 import com.example.fitlog.data.repository.WorkoutRepository
 import com.example.fitlog.databinding.ActivityMainBinding
@@ -33,17 +34,20 @@ class MainActivity : AppCompatActivity() {
         val db = AppDatabase.getDatabase(this)
         val foodLogDao = db.foodLogDao()
         val workOutLogDao = db.workoutLogDao()
+        val workoutFavoriteDao = db.workoutFavoriteDao()
 
         val foodRepository = FoodRepository()
         val workoutRepository = WorkoutRepository()
         val foodLogRepository = FoodLogRepository(foodLogDao)
         val workoutLogRepository = WorkoutLogRepository(workOutLogDao)
+        val workoutFavoriteRepository = WorkoutFavoriteRepository(workoutFavoriteDao)
 
         viewModelFactory = AppViewModelFactory(
             foodRepository = foodRepository,
             workoutRepository = workoutRepository,
             foodLogRepository = foodLogRepository,
-            workoutLogRepository = workoutLogRepository
+            workoutLogRepository = workoutLogRepository,
+            workoutFavoriteRepository =  workoutFavoriteRepository
         )
 
         setupBottomNavigation()

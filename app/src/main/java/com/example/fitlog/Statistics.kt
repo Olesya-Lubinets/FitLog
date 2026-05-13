@@ -1,4 +1,4 @@
-package com.example.fitlog.data
+package com.example.fitlog
 
 import android.annotation.SuppressLint
 import com.example.fitlog.data.model.FoodLog
@@ -9,7 +9,7 @@ import java.time.LocalDate
 object Statistics {
 
 
-    fun getTodayDate():LocalDate =  LocalDate.now()
+    private fun getTodayDate():LocalDate =  LocalDate.now()
 
     fun calculateTotalFoodForDay(foods: List<FoodLog>, date: LocalDate):Int =
         foods.filter { it.date == date }.sumOf { it.calories }

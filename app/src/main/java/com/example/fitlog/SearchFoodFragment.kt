@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -44,7 +45,8 @@ class SearchFoodFragment:Fragment() {
         foodViewModel.foundFood.observe(viewLifecycleOwner) { foundFood ->
             Log.d("MainActivity", "LiveData updated: $foundFood")
             val foodList = foundFood.foods.food
-            adapter.submitList(foodList)
+            if (foodList.isNotEmpty()) adapter.submitList(foodList)
+            else Toast.makeText(context,"Sorry: nothing found",Toast.LENGTH_SHORT).show()
         }
 
 
