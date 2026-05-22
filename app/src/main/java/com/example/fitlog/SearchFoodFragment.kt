@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -12,6 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fitlog.data.model.FoodUiState
+import com.example.fitlog.data.model.DataSource
 import com.example.fitlog.ui.FoodViewModel
 
 class SearchFoodFragment:Fragment() {
@@ -32,21 +35,45 @@ class SearchFoodFragment:Fragment() {
 
         val searchView = view.findViewById<SearchView>(R.id.searchView)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val message = view.findViewById<TextView>(R.id.foodMessage)
+
+
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = FoodAdapter {
-            food ->
+        val adapter = FoodAdapter (
+            {
+                food -> foodViewModel.toggleFood(food)},
+            { food ->
             val action = SearchFoodFragmentDirections.actionSearchFoodFragmentToFoodDetailsFragment(foodId = food.food_id)
             findNavController().navigate(action)
-        }
+        } )
         recyclerView.adapter = adapter
 
 
-        foodViewModel.foundFood.observe(viewLifecycleOwner) { foundFood ->
-            Log.d("MainActivity", "LiveData updated: $foundFood")
-            val foodList = foundFood.foods.food
-            if (foodList.isNotEmpty()) adapter.submitList(foodList)
-            else Toast.makeText(context,"Sorry: nothing found",Toast.LENGTH_SHORT).show()
+        foodViewModel.foodUiState.observe(viewLifecycleOwner) { state ->
+            Log.d("AddWorkout Fragment", "State updated: $state")
+            when (state) {
+                is FoodUiState.SuccessState -> {
+                    when (state.source) {
+                        DataSource.API -> message.text = "Found:"
+                        DataSource.FAVORITE -> message.text =
+                            "No internet connection. Favorites shown."
+                    }
+                    adapter.submitList(state.data)
+                }
+
+                FoodUiState.Empty -> Toast.makeText(
+                    context,
+                    "Sorry: nothing found",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                is FoodUiState.ErrorSate -> Toast.makeText(
+                    context,
+                    state.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
 

@@ -23,4 +23,32 @@
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
         android:paddingStart="8dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        android:id="@+id/buttonFoodContainer">
+
+        <ImageButton
+            android:id="@+id/btnAddFoodToFavorite"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/favorite_selector"
+            android:contentDescription="Favorite"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"/>
+
+        <Button
+            android:id="@+id/btnAddFoodToTodayFoodItems"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Add to Today"
+            android:layout_marginStart="8dp"/>
+
+
+    </LinearLayout>
 </LinearLayout>

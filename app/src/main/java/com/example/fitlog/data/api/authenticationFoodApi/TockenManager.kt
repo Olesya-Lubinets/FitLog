@@ -1,4 +1,4 @@
-package com.example.fitlog.data.api
+package com.example.fitlog.data.api.authenticationFoodApi
 
 import android.util.Log
 import kotlinx.coroutines.runBlocking
@@ -18,7 +18,7 @@ object TokenManager {
     }
 
      fun fetchTokenIfNeeded(authAPIService: AuthAPIService) {
-        if (token==null || checkIfTokenExpired()) {
+        if (token ==null || checkIfTokenExpired()) {
             runBlocking {
                 val  tokenResponse = authAPIService.getToken()
                 saveToken(tokenResponse.access_token,tokenResponse.expires_in)  }

@@ -30,7 +30,7 @@ class ServingAdapter(private val onItemClicked:(Serving) -> Unit)
         val tvCarbs:TextView = view.findViewById(R.id.tvCarbs)
         val tvSugar:TextView = view.findViewById(R.id.tvSugar)
         val tvFiber:TextView = view.findViewById(R.id.tvFiber)
-        val addToToday: Button= view.findViewById(R.id.btnAddFoodToToday)
+        val addToToday: Button= view.findViewById(R.id.btnAddFoodToTodayServings)
 
     }
 
@@ -56,7 +56,7 @@ class ServingAdapter(private val onItemClicked:(Serving) -> Unit)
             holder.addToToday.visibility = View.GONE
         }
 
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             val previous = selectedPosition
             selectedPosition = holder.bindingAdapterPosition
 

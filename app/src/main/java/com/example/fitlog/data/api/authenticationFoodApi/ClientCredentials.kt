@@ -1,4 +1,4 @@
-package com.example.fitlog.data.api
+package com.example.fitlog.data.api.authenticationFoodApi
 
 object ClientCredentials {
     const val clientID = "012aac55d6914cb4a841a6aa42042d06"

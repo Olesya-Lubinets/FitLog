@@ -15,10 +15,9 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fitlog.data.model.WorkoutUI
 import com.example.fitlog.data.model.WorkoutUiState
 import com.example.fitlog.data.model.convertKGtoPounds
-import com.example.fitlog.data.model.dataSource
+import com.example.fitlog.data.model.DataSource
 import com.example.fitlog.ui.WorkoutLogViewModel
 import com.example.fitlog.ui.WorkoutViewModel
 
@@ -61,7 +60,7 @@ class AddWorkoutFragment : Fragment() {
                 Toast.makeText(context, "Workout added", Toast.LENGTH_SHORT).show()
             }, { workout ->
                 workOutViewModel.toggleFavorite(workout)
-                Toast.makeText(context, "Workout !!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Workout add/deleted to favorites", Toast.LENGTH_SHORT).show()
             })
         recyclerView.adapter = adapter
         
@@ -84,8 +83,8 @@ class AddWorkoutFragment : Fragment() {
             when (state) {
                 is WorkoutUiState.SuccessState -> {
                     when (state.source) {
-                        dataSource.API -> message.text = "Found:"
-                        dataSource.FAVORITE -> message.text =
+                        DataSource.API -> message.text = "Found:"
+                        DataSource.FAVORITE -> message.text =
                             "No internet connection. Favorites shown."
                     }
                     adapter.submitList(state.data)

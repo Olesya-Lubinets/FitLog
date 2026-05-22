@@ -1,5 +1,7 @@
-package com.example.fitlog.data.api
+package com.example.fitlog.data.api.foodAPI
 
+import com.example.fitlog.data.api.authenticationFoodApi.AuthRetrofit
+import com.example.fitlog.data.api.authenticationFoodApi.AuthTokenInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

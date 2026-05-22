@@ -17,4 +17,22 @@ object Migrations {
 
         }
     }
+    val MIGRATION_2_3 = object : Migration(2, 3) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                """
+            CREATE TABLE IF NOT EXISTS `FoodFavorite` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `brand_name` TEXT,
+                `food_description` TEXT NOT NULL,
+                `food_id` INTEGER NOT NULL,
+                `food_name` TEXT NOT NULL,
+                `food_type` TEXT NOT NULL,
+                `food_url` TEXT NOT NULL,
+                `servings` TEXT NOT NULL
+            )
+            """.trimIndent()
+            )
+        }
+    }
 }

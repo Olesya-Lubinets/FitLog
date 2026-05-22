@@ -2,9 +2,9 @@
 
     <item
         android:state_selected="true"
-        android:drawable="@drawable/ic_favorite"/>
+        android:drawable="@drawable/selected"/>
 
     <item
-        android:drawable="@drawable/ic_star"/>
+        android:drawable="@drawable/not_selected"/>
 
 </selector>

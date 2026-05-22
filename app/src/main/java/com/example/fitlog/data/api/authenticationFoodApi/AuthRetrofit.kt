@@ -1,4 +1,4 @@
-package com.example.fitlog.data.api
+package com.example.fitlog.data.api.authenticationFoodApi
 
 import android.util.Log
 import okhttp3.Credentials
@@ -25,7 +25,10 @@ object AuthRetrofit {
 
     private const val BASE_URL = "https://oauth.fatsecret.com/"
 
-    private val basicAuth = Credentials.basic(ClientCredentials.clientID, ClientCredentials.clientSecret)
+    private val basicAuth = Credentials.basic(
+        ClientCredentials.clientID,
+        ClientCredentials.clientSecret
+    )
 
     val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

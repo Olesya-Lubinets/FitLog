@@ -1,4 +1,4 @@
-package com.example.fitlog.data.api
+package com.example.fitlog.data.api.foodAPI
 
 import com.example.fitlog.data.model.FoodByIDResponse
 import com.example.fitlog.data.model.FoodSearchResponse

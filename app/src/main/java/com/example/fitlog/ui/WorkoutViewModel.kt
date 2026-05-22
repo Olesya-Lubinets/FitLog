@@ -1,6 +1,6 @@
 package com.example.fitlog.ui
 
-import androidx.compose.ui.res.stringResource
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.fitlog.data.model.Workout
 import com.example.fitlog.data.model.WorkoutUI
 import com.example.fitlog.data.model.WorkoutUiState
-import com.example.fitlog.data.model.dataSource
+import com.example.fitlog.data.model.DataSource
 import com.example.fitlog.data.repository.NoSuchItemException
 import com.example.fitlog.data.repository.WorkoutFavoriteRepository
 import com.example.fitlog.data.repository.WorkoutRepository
@@ -28,16 +28,20 @@ class WorkoutViewModel(
                 val workoutList:List<Workout> = workoutRepository.getSearchedWorkout(activity,weight,duration)
                 val favoritesNames: List<String> = workoutFavoriteRepository.getAllOnce().map { it.name }
                 val uiList:List<WorkoutUI> = workoutList.map { it.toUI(it.name in favoritesNames) }
-                _uiState.value = WorkoutUiState.SuccessState(uiList, dataSource.API)
+                _uiState.value = WorkoutUiState.SuccessState(uiList, DataSource.API)
 
             } catch (e:NoSuchItemException) {
                 _uiState.value = WorkoutUiState.Empty
 
             } catch (e:Exception) {
                 val favorites = workoutFavoriteRepository.getAllOnce()
-                if (favorites.isEmpty())  _uiState.value = WorkoutUiState.ErrorSate("No internet and no favorites")
+                if (favorites.isEmpty())  {
+                    _uiState.value = WorkoutUiState.ErrorSate("No internet and no favorites")
+                    Log.d("WorkoutViewModel","No internet and no favorites")
+                }
                     else {
-                       _uiState.value = WorkoutUiState.SuccessState(favorites.map { it.toUI()}, dataSource.FAVORITE)
+                         Log.d("WorkoutViewModel","No internet and YES favorites")
+                       _uiState.value = WorkoutUiState.SuccessState(favorites.map { it.toUI()}, DataSource.FAVORITE)
                 }
             }
         }

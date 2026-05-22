@@ -1,4 +1,4 @@
-package com.example.fitlog.data.api;
+package com.example.fitlog.data.api.authenticationFoodApi;
 
 import android.util.Log
 import okhttp3.Interceptor
@@ -10,7 +10,7 @@ class AuthTokenInterceptor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
-       TokenManager.fetchTokenIfNeeded(authAPIService)
+        TokenManager.fetchTokenIfNeeded(authAPIService)
 
         val request = chain.request()
             .newBuilder()

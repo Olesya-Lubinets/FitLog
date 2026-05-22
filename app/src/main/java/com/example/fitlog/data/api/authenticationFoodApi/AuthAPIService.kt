@@ -1,4 +1,4 @@
-package com.example.fitlog.data.api
+package com.example.fitlog.data.api.authenticationFoodApi
 
 import com.example.fitlog.data.model.TokenResponse
 import retrofit2.http.Field

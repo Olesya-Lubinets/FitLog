@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -61,12 +62,13 @@ class WorkoutAdapter(
         }
 
         holder.addToToday.setOnClickListener {
-            onAddClicked(workoutItem)
-            holder.btnAddWorkoutToFavorite.visibility = View.GONE
+            val currentItem = getItem(holder.bindingAdapterPosition)
+            onAddClicked(currentItem)
         }
 
         holder.btnAddWorkoutToFavorite.setOnClickListener {
-            onFavoriteClicked(workoutItem)
+            val currentItem = getItem(holder.bindingAdapterPosition)
+            onFavoriteClicked(currentItem)
         }
     }
 
@@ -95,6 +97,7 @@ class WorkoutDiffCallBack : DiffUtil.ItemCallback<WorkoutUI>() {
     }
 
     override fun getChangePayload(oldItem: WorkoutUI, newItem: WorkoutUI): Any? {
+        Log.e("WorkoutAdapter", "Compare old = ${oldItem.isFavorite} and new = ${newItem.isFavorite}")
         return if (oldItem.isFavorite != newItem.isFavorite) "PAYLOAD_FAVORITE"
         else null
     }

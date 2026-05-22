@@ -2,6 +2,7 @@ package com.example.fitlog
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitlog.data.model.FoodLog
+import com.example.fitlog.data.model.FoodUI
 import com.example.fitlog.data.model.FoodX
 import com.example.fitlog.data.model.Serving
 import com.example.fitlog.ui.FoodLogViewModel
@@ -22,6 +24,7 @@ import java.time.LocalDate
 
 
 class FoodDetailsFragment : Fragment() {
+
     private val foodViewModel: FoodViewModel by viewModels {
         (requireActivity() as MainActivity).viewModelFactory
     }
@@ -53,24 +56,24 @@ class FoodDetailsFragment : Fragment() {
         val foodType = view.findViewById<TextView>(R.id.tvFoodType)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rvServings)
 
-        var selectedFood:FoodX? = null
+        var selectedFood:FoodUI? = null
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         val adapter = ServingAdapter { serving ->
             if (selectedFood!=null) {
-                foodLogViewModel.addFoodLog(
-                    getFoodLogFromFoodX(selectedFood!!, serving)
-                )
+                val selectedLog = selectedFood!!.toLog(serving.calories.toIntOrNull() ?: 0)
+                foodLogViewModel.addFoodLog(selectedLog)
             }
-            Toast.makeText(context,"Food added",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"Food     added",Toast.LENGTH_SHORT).show()
         }
         recyclerView.adapter = adapter
 
-        foodViewModel.foodByID.observe(viewLifecycleOwner) {foodByID ->
-            foodName.text = foodByID.food.food_name
-            foodType.text = foodByID.food.food_type
-            adapter.submitList(foodByID.food.servings.serving)
-            selectedFood = foodByID.food
+        foodViewModel.foodByID.observe(viewLifecycleOwner) { foodByID ->
+            if (foodByID != null) {
+            foodName.text = foodByID.food_name
+            foodType.text = foodByID.food_type
+            adapter.submitList(foodByID.servings?.serving?: emptyList())
+            selectedFood = foodByID }
         }
 
     }
