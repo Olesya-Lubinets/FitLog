@@ -12,6 +12,10 @@ import com.example.fitlog.data.model.DataSource
 import com.example.fitlog.data.repository.NoSuchItemException
 import com.example.fitlog.data.repository.WorkoutFavoriteRepository
 import com.example.fitlog.data.repository.WorkoutRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class WorkoutViewModel(
@@ -19,8 +23,8 @@ class WorkoutViewModel(
     private val workoutFavoriteRepository: WorkoutFavoriteRepository)
     :ViewModel() {
 
-    private val _uiState = MutableLiveData<WorkoutUiState>()
-    val uiState:LiveData<WorkoutUiState> = _uiState
+    private val _uiState =  MutableStateFlow<WorkoutUiState>(WorkoutUiState.Empty)
+    val uiState: StateFlow<WorkoutUiState> = _uiState.asStateFlow()
 
     fun  getWorkoutList(activity:String, weight:Int, duration:Int) {
         viewModelScope.launch {
@@ -53,12 +57,14 @@ class WorkoutViewModel(
             if (isFavorite) workoutFavoriteRepository.delete(workoutUI.name)
             else workoutFavoriteRepository.insert(workoutUI.toFavorite())
 
-            val currentState = uiState.value as WorkoutUiState.SuccessState
-            val updateList = currentState.data.map {
-                if (it.name == workoutUI.name) it.copy(isFavorite = !it.isFavorite)
-                else it
+            _uiState.update { currentState ->
+                if (currentState !is WorkoutUiState.SuccessState ) return@update currentState
+                val updateList = currentState.data.map {
+                    if (it.name == workoutUI.name) it.copy(isFavorite = !it.isFavorite)
+                    else it
+                }
+                WorkoutUiState.SuccessState(updateList, currentState.source )
             }
-            _uiState.value =  WorkoutUiState.SuccessState(updateList, currentState.source )
         }
     }
 }

@@ -13,6 +13,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitlog.data.model.WorkoutUiState
@@ -20,6 +23,7 @@ import com.example.fitlog.data.model.convertKGtoPounds
 import com.example.fitlog.data.model.DataSource
 import com.example.fitlog.ui.WorkoutLogViewModel
 import com.example.fitlog.ui.WorkoutViewModel
+import kotlinx.coroutines.launch
 
 
 class AddWorkoutFragment : Fragment() {
@@ -78,31 +82,36 @@ class AddWorkoutFragment : Fragment() {
         }
 
 
-        workOutViewModel.uiState.observe(viewLifecycleOwner) { state ->
-            Log.d("AddWorkout Fragment", "State updated: $state")
-            when (state) {
-                is WorkoutUiState.SuccessState -> {
-                    when (state.source) {
-                        DataSource.API -> message.text = "Found:"
-                        DataSource.FAVORITE -> message.text =
-                            "No internet connection. Favorites shown."
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                workOutViewModel.uiState.collect { state ->
+                    Log.d("AddWorkout Fragment", "State updated: $state")
+                    when (state) {
+                        is WorkoutUiState.SuccessState -> {
+                            when (state.source) {
+                                DataSource.API -> message.text = "Found:"
+                                DataSource.FAVORITE -> message.text =
+                                    "No internet connection. Favorites shown."
+                            }
+                            adapter.submitList(state.data)
+                        }
+
+                        WorkoutUiState.Empty -> Toast.makeText(
+                            context,
+                            "Sorry: nothing found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        is WorkoutUiState.ErrorSate -> Toast.makeText(
+                            context,
+                            state.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    adapter.submitList(state.data)
                 }
-
-                WorkoutUiState.Empty -> Toast.makeText(
-                    context,
-                    "Sorry: nothing found",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                is WorkoutUiState.ErrorSate -> Toast.makeText(
-                    context,
-                    state.message,
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
+
     }
 
 

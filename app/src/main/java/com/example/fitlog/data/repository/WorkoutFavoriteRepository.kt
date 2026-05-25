@@ -7,9 +7,9 @@ import com.example.fitlog.data.model.WorkoutFavorite
 import com.example.fitlog.data.model.WorkoutLog
 
 class WorkoutFavoriteRepository(private val workoutFavoriteDao: WorkoutFavoriteDao) {
+
     val workoutFavoriteLiveData: LiveData<List<WorkoutFavorite>> = workoutFavoriteDao.getAll()
 
-    suspend fun getAll() = workoutFavoriteDao.getAll()
     suspend fun insert(newWorkoutLog: WorkoutFavorite) = workoutFavoriteDao.insert(newWorkoutLog)
     suspend fun delete(name: String)  = workoutFavoriteDao.delete(name)
     suspend fun isFavorite(name: String) = workoutFavoriteDao.isFavorite(name)

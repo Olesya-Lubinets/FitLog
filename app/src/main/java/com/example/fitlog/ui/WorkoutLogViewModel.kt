@@ -1,16 +1,21 @@
 package com.example.fitlog.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fitlog.data.model.FoodLog
 import com.example.fitlog.data.model.WorkoutLog
 import com.example.fitlog.data.repository.WorkoutLogRepository
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class WorkoutLogViewModel(private val workoutLogRepository: WorkoutLogRepository):ViewModel() {
-    val workoutLogList: LiveData<List<WorkoutLog>> = workoutLogRepository.workoutLogLiveData
+
+    val workoutLogFlow: StateFlow<List<WorkoutLog>> = workoutLogRepository.workoutLogList.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
 
     fun addWorkoutLog(newWorkoutLog: WorkoutLog) {
         viewModelScope.launch {

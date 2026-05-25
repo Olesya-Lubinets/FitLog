@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.fitlog.data.model.FoodLog
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FoodLogDao {
@@ -17,7 +18,7 @@ interface FoodLogDao {
     suspend fun delete(foodLog: FoodLog)
 
     @Query("SELECT * FROM FoodLog")
-    fun getAll():LiveData<List<FoodLog>>
+    fun getAll(): Flow<List<FoodLog>>
 
     @Query("SELECT * FROM FoodLog WHERE id = :id")
     suspend fun getByID(id:Int): FoodLog

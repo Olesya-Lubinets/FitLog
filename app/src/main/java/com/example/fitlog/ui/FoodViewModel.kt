@@ -17,6 +17,10 @@ import com.example.fitlog.data.repository.FoodFavoriteRepository
 import com.example.fitlog.data.repository.FoodRepository
 import com.example.fitlog.data.repository.NoSuchItemException
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class FoodViewModel(
@@ -27,8 +31,8 @@ class FoodViewModel(
     private val _foundFood = MutableLiveData<FoodSearchResponse>()
     val foundFood: LiveData<FoodSearchResponse> = _foundFood
 
-    private val _foodUIState = MutableLiveData<FoodUiState>()
-    val foodUiState: LiveData<FoodUiState> = _foodUIState
+    private val _foodUIState = MutableStateFlow<FoodUiState>(FoodUiState.Empty)
+    val foodUiState: StateFlow<FoodUiState> = _foodUIState.asStateFlow()
 
     private val _foodByID = MutableLiveData<FoodUI>()
     val foodByID: LiveData<FoodUI> = _foodByID
@@ -96,12 +100,14 @@ class FoodViewModel(
                 val servings = foodRepository.getFoodServingsByID(foodUI.food_id)
                 foodFavoriteRepository.insert(foodUI.toFavorite(servings))
             }
-            val currentState = (foodUiState.value as FoodUiState.SuccessState)
-            val newList = currentState.data.map {
-                if (it.food_id == foodUI.food_id) it.copy(isFavorite = !it.isFavorite)
-                else it
+            _foodUIState.update { currentState ->
+                if (currentState !is FoodUiState.SuccessState) return@update currentState
+                val newList = currentState.data.map {
+                    if (it.food_id == foodUI.food_id) it.copy(isFavorite = !it.isFavorite)
+                    else it
+                }
+                FoodUiState.SuccessState(newList, currentState.source)
             }
-            _foodUIState.value = FoodUiState.SuccessState(newList, currentState.source)
         }
     }
 
