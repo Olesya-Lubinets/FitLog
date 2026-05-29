@@ -70,7 +70,7 @@ class SearchFoodFragment : Fragment() {
                             adapter.submitList(state.data)
                         }
 
-                        FoodUiState.Empty -> Toast.makeText(
+                        is FoodUiState.Empty -> Toast.makeText(
                             context,
                             "Sorry: nothing found",
                             Toast.LENGTH_SHORT

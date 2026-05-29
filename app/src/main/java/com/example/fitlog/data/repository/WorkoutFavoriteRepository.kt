@@ -1,14 +1,14 @@
 package com.example.fitlog.data.repository
 
 import androidx.lifecycle.LiveData
-import com.example.fitlog.data.api.workaoutAPI.WorkoutRetrofit
 import com.example.fitlog.data.db.WorkoutFavoriteDao
 import com.example.fitlog.data.model.WorkoutFavorite
-import com.example.fitlog.data.model.WorkoutLog
+import kotlinx.coroutines.flow.Flow
+
 
 class WorkoutFavoriteRepository(private val workoutFavoriteDao: WorkoutFavoriteDao) {
 
-    val workoutFavoriteLiveData: LiveData<List<WorkoutFavorite>> = workoutFavoriteDao.getAll()
+    val workoutFavoriteFlow: Flow<List<WorkoutFavorite>> = workoutFavoriteDao.getAll()
 
     suspend fun insert(newWorkoutLog: WorkoutFavorite) = workoutFavoriteDao.insert(newWorkoutLog)
     suspend fun delete(name: String)  = workoutFavoriteDao.delete(name)

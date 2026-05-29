@@ -9,6 +9,7 @@ import androidx.room.Query
 
 
 import com.example.fitlog.data.model.WorkoutFavorite
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WorkoutFavoriteDao {
@@ -20,7 +21,7 @@ interface WorkoutFavoriteDao {
     suspend fun delete(name: String)
 
     @Query("SELECT * FROM  WorkoutFavorite")
-    fun getAll(): LiveData<List<WorkoutFavorite>>
+    fun getAll(): Flow<List<WorkoutFavorite>>
 
     @Query("SELECT * FROM WorkoutFavorite")
     suspend fun getAllOnce(): List<WorkoutFavorite>

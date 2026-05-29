@@ -5,10 +5,14 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.fitlog.data.model.FoodFavorite
-import com.example.fitlog.data.model.FoodLog
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FoodFavoriteDao {
+
+    @Query("SELECT * FROM  FoodFavorite")
+    fun getAll(): Flow<List<FoodFavorite>>
+
     @Query("SELECT * FROM FoodFavorite")
     suspend fun getAllOnce(): List<FoodFavorite>
 

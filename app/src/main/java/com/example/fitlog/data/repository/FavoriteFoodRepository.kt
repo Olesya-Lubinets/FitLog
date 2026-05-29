@@ -3,8 +3,11 @@ package com.example.fitlog.data.repository
 import com.example.fitlog.data.db.FoodFavoriteDao
 import com.example.fitlog.data.model.FoodFavorite
 import com.example.fitlog.data.model.FoodLog
+import kotlinx.coroutines.flow.Flow
 
 class FoodFavoriteRepository(private val foodFavoriteDao: FoodFavoriteDao) {
+
+    val  foodFavoriteFlow: Flow<List<FoodFavorite>> = foodFavoriteDao.getAll()
 
     suspend fun insert(newFoodFavorite: FoodFavorite) = foodFavoriteDao.insert(newFoodFavorite)
     suspend fun delete(deletedFoodFavoriteName: String)  = foodFavoriteDao.delete(deletedFoodFavoriteName)

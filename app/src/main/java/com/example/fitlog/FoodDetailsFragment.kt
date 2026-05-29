@@ -1,8 +1,6 @@
 package com.example.fitlog
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,18 +8,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fitlog.data.model.FoodLog
+import com.example.fitlog.data.model.FoodDetailsState
 import com.example.fitlog.data.model.FoodUI
-import com.example.fitlog.data.model.FoodX
-import com.example.fitlog.data.model.Serving
 import com.example.fitlog.ui.FoodLogViewModel
 import com.example.fitlog.ui.FoodViewModel
-import java.time.LocalDate
-
-
+import kotlinx.coroutines.launch
 
 class FoodDetailsFragment : Fragment() {
 
@@ -64,30 +61,35 @@ class FoodDetailsFragment : Fragment() {
                 val selectedLog = selectedFood!!.toLog(serving.calories.toIntOrNull() ?: 0)
                 foodLogViewModel.addFoodLog(selectedLog)
             }
-            Toast.makeText(context,"Food     added",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"Food added",Toast.LENGTH_SHORT).show()
         }
         recyclerView.adapter = adapter
 
-        foodViewModel.foodByID.observe(viewLifecycleOwner) { foodByID ->
-            if (foodByID != null) {
-            foodName.text = foodByID.food_name
-            foodType.text = foodByID.food_type
-            adapter.submitList(foodByID.servings?.serving?: emptyList())
-            selectedFood = foodByID }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                foodViewModel.foodByIDUIState.collect { state ->
+                    when(state) {
+                        is FoodDetailsState.Success -> {
+                            val foodByID= state.data
+                            foodName.text = foodByID.food_name
+                            foodType.text = foodByID.food_type
+                            adapter.submitList(foodByID.servings?.serving ?: emptyList())
+                            selectedFood = foodByID
+                        }
+                        is FoodDetailsState.Empty -> Toast.makeText(
+                            context,
+                            "Sorry: nothing found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        is FoodDetailsState.Error -> Toast.makeText(
+                            context,
+                            state.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
-
-    }
-
-    @SuppressLint("NewApi")
-    fun getFoodLogFromFoodX(food: FoodX,serving:Serving):FoodLog {
-        lateinit var foodLog:FoodLog
-        foodViewModel.foodByID.observe(viewLifecycleOwner) { foodByID ->
-            foodLog = FoodLog(
-                name = food.food_name, date = LocalDate.now(),
-                    calories = serving.calories.toIntOrNull()?:0
-            )
-        }
-        return foodLog
     }
 }
 

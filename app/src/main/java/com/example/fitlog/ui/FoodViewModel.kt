@@ -12,6 +12,8 @@ import com.example.fitlog.data.model.FoodSearchResponse
 import com.example.fitlog.data.model.FoodUI
 import com.example.fitlog.data.model.FoodUiState
 import com.example.fitlog.data.model.DataSource
+import com.example.fitlog.data.model.Food
+import com.example.fitlog.data.model.FoodDetailsState
 import com.example.fitlog.data.model.FoodX
 import com.example.fitlog.data.repository.FoodFavoriteRepository
 import com.example.fitlog.data.repository.FoodRepository
@@ -28,14 +30,12 @@ class FoodViewModel(
     private val foodFavoriteRepository: FoodFavoriteRepository
 ) : ViewModel() {
 
-    private val _foundFood = MutableLiveData<FoodSearchResponse>()
-    val foundFood: LiveData<FoodSearchResponse> = _foundFood
 
     private val _foodUIState = MutableStateFlow<FoodUiState>(FoodUiState.Empty)
     val foodUiState: StateFlow<FoodUiState> = _foodUIState.asStateFlow()
 
-    private val _foodByID = MutableLiveData<FoodUI>()
-    val foodByID: LiveData<FoodUI> = _foodByID
+    private val _foodByIDUIState = MutableStateFlow<FoodDetailsState>(FoodDetailsState.Empty) // Нулевое значение
+    val foodByIDUIState: StateFlow<FoodDetailsState> = _foodByIDUIState.asStateFlow()
 
     fun getSearchedFood(searchedItem: String) {
         Log.d("FoodViewModel", "Searching for: $searchedItem")
@@ -67,27 +67,16 @@ class FoodViewModel(
         viewModelScope.launch {
             try {
                 val result = foodRepository.getFoodByID(foodID).food.toUI()
-                _foodByID.value = result
+                _foodByIDUIState.value = FoodDetailsState.Success(result)
             } catch (e: Exception) {
                 Log.e("FoodViewModel", "Error fetching food with ID from API", e)
-                try {
                     val result = foodFavoriteRepository.getById(foodID)
-                    if (result == null) Log.e(
-                        "FoodViewModel",
-                        "Error fetching food with ID and it doesn't exist in favorites",
-                        e
-                    )
+                    if (result == null) {
+                    _foodByIDUIState.value = FoodDetailsState.Error("Error fetching food with ID and it doesn't exist in favorites")}
                     else {
-                        _foodByID.value = result.toUi()
+                        _foodByIDUIState.value = FoodDetailsState.Success(result.toUi())
                         Log.e("FoodViewModel", "Got data from favorites")
                     }
-                } catch (e: Exception) {
-                    Log.e(
-                        "FoodViewModel",
-                        "Error fetching food with ID and it doesn't exist in favorites",
-                        e
-                    )
-                }
             }
         }
     }
@@ -112,30 +101,5 @@ class FoodViewModel(
     }
 
 
-    fun loadMockFoodItem(context: Context) {
-        val mockResponse = loadMockFoodItemFromFile(context)
-        _foodByID.value = mockResponse
-    }
 
-    private fun loadMockFoodItemFromFile(context: Context): FoodUI {
-        val current_json = context.resources
-            .openRawResource(R.raw.food_item_mock)
-            .bufferedReader()
-            .use { it.readText() }
-        val foodByIDResponse = Gson().fromJson(current_json, FoodByIDResponse::class.java)
-        return foodByIDResponse.food.toUI()
-    }
-
-    fun loadMockFood(context: Context) {
-        val mockResponse = loadFoodSearchResponsefromMock(context)
-        _foundFood.value = mockResponse
-    }
-
-    private fun loadFoodSearchResponsefromMock(context: Context): FoodSearchResponse {
-        val current_json = context.resources
-            .openRawResource(R.raw.food_mock)
-            .bufferedReader()
-            .use { it.readText() }
-        return Gson().fromJson(current_json, FoodSearchResponse::class.java)
-    }
 }

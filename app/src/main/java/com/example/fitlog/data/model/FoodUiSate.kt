@@ -11,3 +11,9 @@ sealed class FoodUiState {
     object Empty:FoodUiState()
 }
 
+
+sealed class FoodDetailsState {
+    object Empty: FoodDetailsState()
+    data class Success(val data: FoodUI) : FoodDetailsState()
+    data class Error(val message: String) : FoodDetailsState()
+}
