@@ -18,16 +18,14 @@ import com.example.fitlog.data.model.FoodDetailsState
 import com.example.fitlog.data.model.FoodUI
 import com.example.fitlog.ui.FoodLogViewModel
 import com.example.fitlog.ui.FoodViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class FoodDetailsFragment : Fragment() {
 
-    private val foodViewModel: FoodViewModel by viewModels {
-        (requireActivity() as MainActivity).viewModelFactory
-    }
-    private val foodLogViewModel:FoodLogViewModel by viewModels {
-                 (requireActivity() as MainActivity).viewModelFactory
-    }
+    private val foodViewModel: FoodViewModel by viewModels()
+    private val foodLogViewModel:FoodLogViewModel by viewModels()
 
     private val args: FoodDetailsFragmentArgs by navArgs()
     private var foodID:Long = 0

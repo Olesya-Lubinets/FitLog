@@ -18,23 +18,4 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun workoutLogDao(): WorkoutLogDao
     abstract fun workoutFavoriteDao() : WorkoutFavoriteDao
     abstract fun foodFavoriteDao(): FoodFavoriteDao
-
-    companion object {
-        @Volatile private var INSTANCE: AppDatabase? = null
-
-        fun getDatabase(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-
-                Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "fitlog_database"
-                )
-                    //.addMigrations(Migrations.MIGRATION_1_2)
-                    //.addMigrations(Migrations.MIGRATION_2_3)
-                    .fallbackToDestructiveMigration(true)
-                    .build().also { INSTANCE = it }
-            }
-        }
-    }
 }

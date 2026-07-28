@@ -4,8 +4,9 @@ import com.example.fitlog.data.db.FoodFavoriteDao
 import com.example.fitlog.data.model.FoodFavorite
 import com.example.fitlog.data.model.FoodLog
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class FoodFavoriteRepository(private val foodFavoriteDao: FoodFavoriteDao) {
+class FoodFavoriteRepository @Inject constructor(private val foodFavoriteDao: FoodFavoriteDao) {
 
     val  foodFavoriteFlow: Flow<List<FoodFavorite>> = foodFavoriteDao.getAll()
 

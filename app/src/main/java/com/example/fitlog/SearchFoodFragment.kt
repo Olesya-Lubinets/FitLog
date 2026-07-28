@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fitlog.data.model.FoodUiState
 import com.example.fitlog.data.model.DataSource
 import com.example.fitlog.ui.FoodViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SearchFoodFragment : Fragment() {
 
-    val foodViewModel: FoodViewModel by viewModels {
-        (requireActivity() as MainActivity).viewModelFactory
-    }
+    val foodViewModel: FoodViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

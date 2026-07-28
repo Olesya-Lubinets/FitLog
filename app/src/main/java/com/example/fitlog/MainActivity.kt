@@ -3,21 +3,12 @@ package com.example.fitlog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import com.example.fitlog.data.db.AppDatabase
-import com.example.fitlog.data.repository.FoodFavoriteRepository
-import com.example.fitlog.data.repository.FoodLogRepository
-import com.example.fitlog.data.repository.FoodRepository
-import com.example.fitlog.data.repository.WorkoutFavoriteRepository
-import com.example.fitlog.data.repository.WorkoutLogRepository
-import com.example.fitlog.data.repository.WorkoutRepository
 import com.example.fitlog.databinding.ActivityMainBinding
-import com.example.fitlog.ui.AppViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    lateinit var viewModelFactory: AppViewModelFactory
-
 
     val navController by lazy {
         val navHostFragment =
@@ -25,34 +16,10 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val db = AppDatabase.getDatabase(this)
-        val foodLogDao = db.foodLogDao()
-        val foodFavoriteDao = db.foodFavoriteDao()
-        val workOutLogDao = db.workoutLogDao()
-        val workoutFavoriteDao = db.workoutFavoriteDao()
-
-        val foodRepository = FoodRepository()
-        val workoutRepository = WorkoutRepository()
-        val foodFavoriteRepository = FoodFavoriteRepository(foodFavoriteDao)
-        val foodLogRepository = FoodLogRepository(foodLogDao)
-        val workoutLogRepository = WorkoutLogRepository(workOutLogDao)
-        val workoutFavoriteRepository = WorkoutFavoriteRepository(workoutFavoriteDao)
-
-        viewModelFactory = AppViewModelFactory(
-            foodRepository = foodRepository,
-            workoutRepository = workoutRepository,
-            foodLogRepository = foodLogRepository,
-            workoutLogRepository = workoutLogRepository,
-            workoutFavoriteRepository =  workoutFavoriteRepository,
-            foodFavoriteRepository = foodFavoriteRepository
-        )
 
         setupBottomNavigation()
     }

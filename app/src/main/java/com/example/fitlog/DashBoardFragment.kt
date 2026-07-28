@@ -15,17 +15,14 @@ import com.example.fitlog.ui.FoodLogViewModel
 import com.example.fitlog.ui.WorkoutLogViewModel
 import java.time.LocalDate
 import com.github.mikephil.charting.charts.LineChart
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DashBoardFragment : Fragment() {
 
-    private val foodLogViewModel: FoodLogViewModel by viewModels {
-        (requireActivity() as MainActivity).viewModelFactory
-    }
-
-    private val workoutLogViewModel: WorkoutLogViewModel by viewModels {
-        (requireActivity() as MainActivity).viewModelFactory
-    }
+    private val foodLogViewModel: FoodLogViewModel by viewModels()
+    private val workoutLogViewModel: WorkoutLogViewModel by viewModels()
 
 
     override fun onCreateView(

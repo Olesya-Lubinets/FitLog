@@ -3,8 +3,9 @@ package com.example.fitlog.data.repository
 import com.example.fitlog.data.db.WorkoutLogDao
 import com.example.fitlog.data.model.WorkoutLog
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class WorkoutLogRepository(private val workoutLogDao: WorkoutLogDao) {
+class WorkoutLogRepository @Inject constructor(private val workoutLogDao: WorkoutLogDao) {
 
     val workoutLogList: Flow<List<WorkoutLog>> = workoutLogDao.getAll()
 

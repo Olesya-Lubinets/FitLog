@@ -21,6 +21,8 @@ appcompat = "1.7.1"
 recyclerview = "1.4.0"
 navigation = "2.7.7"
 roomRuntimeAndroid = "2.8.4"
+hilt = "2.57.1"
+ksp = "2.0.0-1.0.22"
 
 
 [libraries]
@@ -53,11 +55,14 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version = "1.9.24" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 navigation-safeargs = {  id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
-
-
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

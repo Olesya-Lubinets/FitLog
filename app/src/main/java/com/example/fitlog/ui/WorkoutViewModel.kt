@@ -11,14 +11,17 @@ import com.example.fitlog.data.model.WorkoutFavorite
 import com.example.fitlog.data.repository.NoSuchItemException
 import com.example.fitlog.data.repository.WorkoutFavoriteRepository
 import com.example.fitlog.data.repository.WorkoutRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WorkoutViewModel(
+@HiltViewModel
+class WorkoutViewModel @Inject constructor(
     private val workoutRepository: WorkoutRepository,
     private val workoutFavoriteRepository: WorkoutFavoriteRepository
 ) : ViewModel() {

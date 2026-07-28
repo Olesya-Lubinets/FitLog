@@ -6,26 +6,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fitlog.R
-import com.example.fitlog.data.model.FoodByIDResponse
-import com.example.fitlog.data.model.FoodSearchResponse
 import com.example.fitlog.data.model.FoodUI
 import com.example.fitlog.data.model.FoodUiState
 import com.example.fitlog.data.model.DataSource
-import com.example.fitlog.data.model.Food
 import com.example.fitlog.data.model.FoodDetailsState
-import com.example.fitlog.data.model.FoodX
 import com.example.fitlog.data.repository.FoodFavoriteRepository
 import com.example.fitlog.data.repository.FoodRepository
 import com.example.fitlog.data.repository.NoSuchItemException
-import com.google.gson.Gson
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class FoodViewModel(
+@HiltViewModel
+class FoodViewModel @Inject constructor (
     private val foodRepository: FoodRepository,
     private val foodFavoriteRepository: FoodFavoriteRepository
 ) : ViewModel() {

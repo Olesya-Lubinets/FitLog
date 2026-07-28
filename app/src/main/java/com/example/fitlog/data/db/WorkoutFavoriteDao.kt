@@ -27,5 +27,5 @@ interface WorkoutFavoriteDao {
     suspend fun getAllOnce(): List<WorkoutFavorite>
 
     @Query("SELECT EXISTS(SELECT 1 FROM WorkoutFavorite WHERE name = :name)")
-    fun isFavorite(name: String):Boolean
+    suspend fun isFavorite(name: String):Boolean
 }

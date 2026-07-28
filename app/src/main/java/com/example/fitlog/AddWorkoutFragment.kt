@@ -23,18 +23,14 @@ import com.example.fitlog.data.model.convertKGtoPounds
 import com.example.fitlog.data.model.DataSource
 import com.example.fitlog.ui.WorkoutLogViewModel
 import com.example.fitlog.ui.WorkoutViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class AddWorkoutFragment : Fragment() {
 
-    private val workOutViewModel: WorkoutViewModel by viewModels {
-        (requireActivity() as MainActivity).viewModelFactory
-    }
-
-    private val workoutLogViewModel: WorkoutLogViewModel by viewModels {
-        (requireActivity() as MainActivity).viewModelFactory
-    }
+    private val workOutViewModel: WorkoutViewModel by viewModels()
+    private val workoutLogViewModel: WorkoutLogViewModel by viewModels()
 
 
     override fun onCreateView(

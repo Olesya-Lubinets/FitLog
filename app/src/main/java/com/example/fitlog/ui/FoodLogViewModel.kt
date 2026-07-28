@@ -5,12 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitlog.data.model.FoodLog
 import com.example.fitlog.data.repository.FoodLogRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FoodLogViewModel(private val foodLogRepository: FoodLogRepository):ViewModel() {
+@HiltViewModel
+class FoodLogViewModel @Inject constructor(private val foodLogRepository: FoodLogRepository)
+    :ViewModel() {
 
     val foodLogList: StateFlow<List<FoodLog>> = foodLogRepository.foodLogFlow.stateIn(
         scope = viewModelScope,

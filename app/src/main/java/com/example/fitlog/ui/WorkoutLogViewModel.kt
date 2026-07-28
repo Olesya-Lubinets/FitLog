@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fitlog.data.model.WorkoutLog
 import com.example.fitlog.data.repository.WorkoutLogRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WorkoutLogViewModel(private val workoutLogRepository: WorkoutLogRepository):ViewModel() {
+@HiltViewModel
+class WorkoutLogViewModel @Inject constructor(private val workoutLogRepository: WorkoutLogRepository):ViewModel() {
 
     val workoutLogFlow: StateFlow<List<WorkoutLog>> = workoutLogRepository.workoutLogList.stateIn(
         scope = viewModelScope,
