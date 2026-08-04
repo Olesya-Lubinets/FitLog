@@ -2,7 +2,7 @@ package com.example.fitlog.data.model
 
 
 sealed class FoodUiState {
-    class SuccessState(
+    data class SuccessState(
         val data: List<FoodUI>,
         val source: DataSource
     ) : FoodUiState()

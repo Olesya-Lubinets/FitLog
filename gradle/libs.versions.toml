@@ -23,6 +23,8 @@ navigation = "2.7.7"
 roomRuntimeAndroid = "2.8.4"
 hilt = "2.57.1"
 ksp = "2.0.0-1.0.22"
+junitJupiter = "5.8.1"
+testng = "6.9.6"
 
 
 [libraries]
@@ -57,6 +59,8 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
+testng = { group = "org.testng", name = "testng", version.ref = "testng" }
 
 
 [plugins]
